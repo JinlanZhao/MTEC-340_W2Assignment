@@ -6,8 +6,8 @@ public class PaddleBehavior : MonoBehaviour
 
     public KeyCode LeftDirection = KeyCode.A;
     public KeyCode RightDirection = KeyCode.D;
-    public float MinX = - 2.5f;
-    public float MaxX = 2.5f;
+    public float MinX = -7.5f;
+    public float MaxX = 7.5f;
 
     void Update()
     {
