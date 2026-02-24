@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: c4a8130f5aafe4c4a96c7867e6283770
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _ballPrefab: {instanceID: 0}
+  - _brickPrefab: {instanceID: 0}
+  - _scoreLeftText: {instanceID: 0}
+  - _scoreMiddleText: {instanceID: 0}
+  - _scoreRightText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

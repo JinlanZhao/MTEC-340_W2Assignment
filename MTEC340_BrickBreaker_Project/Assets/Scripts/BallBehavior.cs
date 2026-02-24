@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class BallBehavior : MonoBehaviour
@@ -9,9 +8,15 @@ public class BallBehavior : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector3 _spawnPos;
 
+    private AudioSource _source;
+    [SerializeField] private AudioClip _paddleHit;
+    [SerializeField] private AudioClip _brickHit;
+    [SerializeField] private AudioClip _MissScore;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _source = GetComponent<AudioSource>();
 
         Vector2 direction = Random.insideUnitCircle;
 
@@ -26,7 +31,6 @@ public class BallBehavior : MonoBehaviour
         _rb.AddForce(direction * _launchForce, ForceMode2D.Impulse);
     }
 
-    
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.CompareTag("Brick"))
         {
@@ -43,13 +47,29 @@ public class BallBehavior : MonoBehaviour
             }
 
             _rb.linearVelocity *= _speedMultiplier;
+            _source.resource = _brickHit;
         }
+        else
+        {
+            _source.resource = _paddleHit;
+        }
+
+        _source.Play();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (GameBehavior.CurrentState == GameBehavior.GameState.Paused)
+            return;
+
         if (!other.CompareTag("Miss"))
             return;
 
+        _source.PlayOneShot(_MissScore);
+        Invoke(nameof(DoMiss), 0.2f);
+    }
+
+    private void DoMiss()
+    {
         GameBehavior.Instance.HandleMiss();
     }
 

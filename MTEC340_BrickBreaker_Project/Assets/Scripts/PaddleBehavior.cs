@@ -11,6 +11,9 @@ public class PaddleBehavior : MonoBehaviour
 
     void Update()
     {
+        if (GameBehavior.CurrentState != GameBehavior.GameState.Playing)
+            return;
+
         float movement = 0.0f;
 
         if (Input.GetKey(LeftDirection))

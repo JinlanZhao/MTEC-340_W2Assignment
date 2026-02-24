@@ -31,7 +31,18 @@ public class BrickSpawner : MonoBehaviour
                     startY - row * ySpacing
                 );
 
-                Instantiate(brickPrefab, spawnPosition, Quaternion.identity);
+                GameObject brickObj = Instantiate(brickPrefab, spawnPosition, Quaternion.identity);
+                BrickBehavior brick = brickObj.GetComponent<BrickBehavior>();
+                Debug.Log($"Spawned row={row}, col={col}, prefabLives={brick.Lives}");
+                
+                if (brick != null)
+                {
+                    // Example: top row hardest (3), next (2), bottom easiest (1)
+                    int lives = rows - row;          // row=0 -> rows, row=1 -> rows-1 ...
+                    lives = Mathf.Clamp(lives, 1, 3); // clamp to 1..3 (match your _lifeColors length)
+
+                    brick.Lives = lives;
+                }
             }
         }
     }
